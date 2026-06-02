@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MMA Verein - Training & Kampfsport</title>
+    <style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #1a1a1a, #0f0f0f);
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Header & Navigation */
+header {
+    background: #1a1a1a;
+    padding: 20px 0;
+    border-bottom: 3px solid #cc0000;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    color: #cc0000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background: #cc0000;
+    color: #fff;
+}
+
+nav a.active {
+    background: #cc0000;
+    color: #fff;
+}
+
+/* Main Content */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* Startseite */
+.hero {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%23cc0000" opacity="0.1" width="1200" height="400"/><circle cx="600" cy="200" r="150" fill="none" stroke="%23cc0000" opacity="0.2" stroke-width="2"/></svg>');
+    background-size: cover;
+    padding: 80px 40px;
+    text-align: center;
+    color: white;
+    background-color: #333;
+    margin-bottom: 40px;
+    border: 2px solid #cc0000;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 20px;
+    color: #cc0000;
+}
+
+.hero p {
+    font-size: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #ddd;
+}
+
+/* Content Grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+.content-grid.reverse {
+    grid-template-columns: 1.5fr 1fr;
+}
+
+.image-placeholder {
+    background: linear-gradient(135deg, #cc0000, #990000);
+    width: 100%;
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 80px;
+    color: rgba(255,255,255,0.3);
+    border: 2px solid #cc0000;
+}
+
+.text-content h2 {
+    font-size: 32px;
+    color: #cc0000;
+    margin-bottom: 20px;
+}
+
+.text-content h3 {
+    font-size: 20px;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.text-content p {
+    color: #555;
+    margin-bottom: 15px;
+    text-align: justify;
+}
+
+.text-content ul {
+    margin-left: 20px;
+    color: #555;
+}
+
+.text-content li {
+    margin-bottom: 8px;
+}
+
+/* Karten Grid */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.card {
+    background: white;
+    border: 2px solid #ddd;
+    border-left: 5px solid #cc0000;
+    padding: 25px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(204, 0, 0, 0.2);
+}
+
+.card h3 {
+    color: #cc0000;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.card p {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Trainer/Athleten */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 30px;
+}
+
+.team-member {
+    background: white;
+    border: 2px solid #ddd;
+    text-align: center;
+    overflow: hidden;
+}
+
+.team-image {
+    background: linear-gradient(135deg, #cc0000, #990000);
+    width: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: rgba(255,255,255,0.3);
+}
+
+.team-info {
+    padding: 25px;
+}
+
+.team-member h3 {
+    color: #cc0000;
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.team-member p {
+    color: #999;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.team-role {
+    color: #666;
+    font-size: 12px;
+}
+
+/* Galerie */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.gallery-item {
+    background: linear-gradient(135deg, #cc0000, #990000);
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: rgba(255,255,255,0.3);
+    border: 2px solid #cc0000;
+    transition: transform 0.3s;
+    cursor: pointer;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+/* Kontakt Formular */
+.contact-form {
+    max-width: 600px;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border: 2px solid #ddd;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    font-family: Arial, Verdana, sans-serif;
+    font-size: 14px;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn {
+    background: #cc0000;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.btn:hover {
+    background: #990000;
+}
+
+/* Statistiken */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin: 40px 0;
+}
+
+.stat-box {
+    background: white;
+    padding: 25px;
+    text-align: center;
+    border: 2px solid #cc0000;
+}
+
+.stat-number {
+    font-size: 36px;
+    font-weight: bold;
+    color: #cc0000;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+/* Footer */
+footer {
+    background: #1a1a1a;
+    color: #aaa;
+    padding: 30px;
+    text-align: center;
+    margin-top: 60px;
+    border-top: 3px solid #cc0000;
+}
+
+.footer-links {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #cc0000;
+    text-decoration: none;
+    margin: 0 15px;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .content-grid,
+    .content-grid.reverse {
+        grid-template-columns: 1fr;
+    }
+
+    nav {
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    nav a {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .cards-grid,
+    .team-grid,
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    .text-content h2 {
+        font-size: 24px;
+    }
+}
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <div class="logo" onclick="showPage('startseite')">🥊 MMA VEREIN</div>
+        <nav>
+            <a class="nav-link active" href="#" onclick="showPage('startseite'); return false;">Startseite</a>
+            <a class="nav-link" href="#" onclick="showPage('geschichte'); return false;">Geschichte</a>
+            <a class="nav-link" href="#" onclick="showPage('produkte'); return false;">Produkte</a>
+            <a class="nav-link" href="#" onclick="showPage('trainer'); return false;">Trainer</a>
+            <a class="nav-link" href="#" onclick="showPage('galerie'); return false;">Galerie</a>
+            <a class="nav-link" href="#" onclick="showPage('kontakt'); return false;">Kontakt</a>
+        </nav>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- STARTSEITE -->
+    <div id="startseite" class="page active">
+        <div class="hero">
+            <h1>Willkommen bei unserem MMA Verein</h1>
+            <p>Schön, dass du hier bist und dich für Mixed Martial Arts interessierst. Egal, ob du komplett neu bist oder schon Erfahrung hast, hier findest du alles, was du wissen musst, um mit MMA zu starten oder dein Training zu verbessern.</p>
+        </div>
+
+        <div class="content-grid">
+            <div class="image-placeholder">🥊</div>
+            <div class="text-content">
+                <h2>Was ist MMA?</h2>
+                <p>MMA steht für Mixed Martial Arts (auf Deutsch: "gemischte Kampfkünste"). Es ist ein moderner Kampfsport, der Techniken aus verschiedenen Disziplinen kombiniert.</p>
+                
+                <h3>Die wichtigsten Techniken sind:</h3>
+                <ul>
+                    <li><strong>Boxen</strong> - Schläge</li>
+                    <li><strong>Kickboxen</strong> - Tritte und Knie</li>
+                    <li><strong>Ringen</strong> - Würfe und Kontrolle</li>
+                    <li><strong>Brazilian Jiu-Jitsu</strong> - Bodenkampf und Aufgabegriffe</li>
+                </ul>
+
+                <h3>Das Besondere an MMA:</h3>
+                <p>Kämpfer müssen alle Distanzen beherrschen: Standkampf, Clinch (Nahkampf) und Bodenkampf.</p>
+            </div>
+        </div>
+
+        <div class="content-grid reverse">
+            <div class="text-content">
+                <h2>Warum MMA bei uns trainieren?</h2>
+                <p>Bei uns steht nicht nur der Sport im Mittelpunkt, sondern auch Respekt, Disziplin und persönliche Entwicklung.</p>
+                
+                <h3>Deine Vorteile:</h3>
+                <ul>
+                    <li>Trainiere deinen ganzen Körper</li>
+                    <li>Verbessere deine Fitness und Ausdauer</li>
+                    <li>Lerne effektive Selbstverteidigung</li>
+                    <li>Stärke dein Selbstvertrauen</li>
+                    <li>Entwickle mentale Stärke</li>
+                    <li>Sei Teil einer motivierten Gemeinschaft</li>
+                </ul>
+            </div>
+            <div class="image-placeholder">💪</div>
+        </div>
+
+        <h2 style="color: #cc0000; font-size: 28px; text-align: center; margin: 40px 0 30px;">Unsere Trainingsangebote</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Anfänger</h3>
+                <p>Perfekt für Einsteiger! Du lernst die Grundlagen aller Techniken, um sicher in die Welt des MMA zu starten. Keine Erfahrung notwendig!</p>
+            </div>
+            <div class="card">
+                <h3>Fortgeschrittene</h3>
+                <p>Für Athleten mit Grundkenntnissen. Wir vertiefen die Techniken, verbessern deine Ausdauer und bereiten dich auf Wettkämpfe vor.</p>
+            </div>
+            <div class="card">
+                <h3>Profis</h3>
+                <p>Intensives Training für ambitionierte Kämpfer. Spezialisiertes Coaching, strategisches Training und intensive Sparring-Sessions.</p>
+            </div>
+        </div>
+
+        <a href="#" onclick="showPage('kontakt'); return false;" style="display: inline-block; background: #cc0000; color: white; padding: 12px 30px; text-decoration: none; margin-top: 20px; font-weight: bold;">Jetzt anmelden</a>
+    </div>
+
+    <!-- GESCHICHTE -->
+    <div id="geschichte" class="page">
+        <h1 style="color: #cc0000; margin-bottom: 30px;">Geschichte von MMA</h1>
+
+        <div class="content-grid">
+            <div class="image-placeholder">📚</div>
+            <div class="text-content">
+                <h2>Entstehung des MMA-Sports</h2>
+                <p>Mixed Martial Arts entstand in den 1990er Jahren, basierend auf antiken Kampfsportarten wie dem griechischen Pankration. Der moderne Sport kombiniert verschiedenste Kampftechniken zu einer einzigartigen Disziplin.</p>
+                
+                <h3>Frühe Entwicklung</h3>
+                <p>Die ersten MMA-Wettkämpfe waren wenig strukturiert, aber mit der Zeit wurden Regeln entwickelt, um die Sicherheit zu gewährleisten.</p>
+            </div>
+        </div>
+
+        <div class="content-grid reverse">
+            <div class="text-content">
+                <h2>Die UFC und Weltweit</h2>
+                <p>Die Ultimate Fighting Championship (UFC) wurde 1993 gegründet und spielte eine entscheidende Rolle bei der Popularisierung von MMA weltweit.</p>
+                
+                <h3>Bedeutung der UFC:</h3>
+                <ul>
+                    <li>Machte MMA international bekannt</li>
+                    <li>Entwickelte Regeln und Sicherheitsstandards</li>
+                    <li>Schuf Karrieremöglichkeiten für Kämpfer</li>
+                    <li>Heute Top-Events in über 150 Ländern</li>
+                </ul>
+
+                <h3>Entwicklung in verschiedenen Ländern:</h3>
+                <p>MMA ist heute weltweit verbreitet mit großen Organisationen auf jedem Kontinent.</p>
+            </div>
+            <div class="image-placeholder">🌍</div>
+        </div>
+
+        <h2 style="color: #cc0000; margin: 40px 0 20px;">Regeln und Sicherheitsaspekte</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Gewichtsklassen</h3>
+                <p>Es gibt unterschiedliche Gewichtsklassen, um faire Wettkämpfe zwischen gleich starken Gegnern zu gewährleisten.</p>
+            </div>
+            <div class="card">
+                <h3>Schutzmechanismen</h3>
+                <p>Handschuhe, Mundschutz, Kopfschutz und andere Ausrüstungen schützen die Kämpfer vor Verletzungen.</p>
+            </div>
+            <div class="card">
+                <h3>Regelwerk</h3>
+                <p>Verbotene Techniken und strenge Überwachung sorgen für fair und sicher ablaufende Wettkämpfe.</p>
+            </div>
+        </div>
+
+        <a href="#" onclick="showPage('startseite'); return false;" style="display: inline-block; background: #cc0000; color: white; padding: 12px 30px; text-decoration: none; margin-top: 30px; font-weight: bold;">← Zur Startseite</a>
+    </div>
+
+    <!-- PRODUKTE / ANGEBOTE -->
+    <div id="produkte" class="page">
+        <h1 style="color: #cc0000; margin-bottom: 30px;">Trainingsangebote & Ausrüstung</h1>
+
+        <div class="content-grid">
+            <div class="image-placeholder">📋</div>
+            <div class="text-content">
+                <h2>Unsere Trainingsangebote</h2>
+                
+                <h3>Kurse und Trainingszeiten:</h3>
+                <ul>
+                    <li><strong>Montag & Mittwoch:</strong> 18:00 - 19:30 (Anfänger)</li>
+                    <li><strong>Dienstag & Freitag:</strong> 18:00 - 20:00 (Fortgeschrittene)</li>
+                    <li><strong>Samstag:</strong> 10:00 - 12:00 (Alle Level)</li>
+                    <li><strong>Samstag:</strong> 13:00 - 15:00 (Profis & Wettkampfvorbereitung)</li>
+                </ul>
+
+                <h3>Trainingskosten:</h3>
+                <ul>
+                    <li><strong>Monatsbeitrag:</strong> ab €39,99</li>
+                    <li><strong>Probetraining:</strong> Kostenlos (1x)</li>
+                    <li><strong>Jahresvertrag:</strong> 10% Rabatt</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 style="color: #cc0000; margin: 40px 0 20px;">Sportausrüstung</h2>
+        <div class="cards-grid">
+            <div class="card">
+                <h3>Handschuhe</h3>
+                <p>Hochwertige MMA-Handschuhe zum Schutz deiner Hände. In verschiedenen Größen und Gewichten erhältlich.</p>
+            </div>
+            <div class="card">
+                <h3>Schutzausrüstung</h3>
+                <p>Schienbeinschützer, Mundschutz, Kopfschutz und weitere Schutzausrüstung für sicheres Training.</p>
+            </div>
+            <div class="card">
+                <h3>Trainingsgeräte</h3>
+                <p>Boxsäcke, Sandsäcke, Pads und weitere Equipment für effektives Training.</p>
+            </div>
+        </div>
+
+        <h2 style="color: #cc0000; margin: 40px 0 20px;">Statistiken</h2>
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-number">150+</div>
+                <div class="stat-label">Aktive Mitglieder</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">4</div>
+                <div class="stat-label">Trainings pro Woche</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">12</div>
+                <div class="stat-label">Veranstaltungen/Jahr</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Zufriedenheit</div>
+            </div>
+        </div>
+
+        <a href="#" onclick="showPage('startseite'); return false;" style="display: inline-block; background: #cc0000; color: white; padding: 12px 30px; text-decoration: none; margin-top: 30px; font-weight: bold;">← Zur Startseite</a>
+    </div>
+
+    <!-- TRAINER & ATHLETEN -->
+    <div id="trainer" class="page">
+        <h1 style="color: #cc0000; margin-bottom: 30px;">Unser Team</h1>
+
+        <p style="text-align: center; margin-bottom: 40px; color: #555;">Unsere erfahrenen Trainer und Athleten sind dein Weg zu Erfolg und Verbesserung im MMA.</p>
+
+        <h2 style="color: #cc0000; font-size: 24px; margin-bottom: 20px;">Trainerteam</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-image">👨‍🏫</div>
+                <div class="team-info">
+                    <h3>Marcus Müller</h3>
+                    <div class="team-role">Cheftrainer</div>
+                    <p style="margin-top: 10px; font-size: 12px;">15 Jahre Erfahrung, spezialisiert auf Bodenkampf und Brazilian Jiu-Jitsu.</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-image">👨‍🏫</div>
+                <div class="team-info">
+                    <h3>Daniel Schmidt</h3>
+                    <div class="team-role">Trainer Standkampf</div>
+                    <p style="margin-top: 10px; font-size: 12px;">10 Jahre Boxen & Kickboxen, ehemaliger Wettkämpfer.</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-image">👩‍🏫</div>
+                <div class="team-info">
+                    <h3>Sarah Wolf</h3>
+                    <div class="team-role">Trainerin Anfänger</div>
+                    <p style="margin-top: 10px; font-size: 12px;">8 Jahre Erfahrung, spezialisiert auf Grundlagen und Anfängertraining.</p>
+                </div>
+            </div>
+        </div>
+
+        <h2 style="color: #cc0000; font-size: 24px; margin: 40px 0 20px;">Beispielkämpfer & Athleten</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <div class="team-image">🥊</div>
+                <div class="team-info">
+                    <h3>Leon Hoffmann</h3>
+                    <div class="team-role">Gewichtsklasse: Weltergewicht</div>
+                    <p style="margin-top: 10px; font-size: 12px;">18-2 Bilanz, Wettkampfveteran mit großem Potenzial.</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-image">🥊</div>
+                <div class="team-info">
+                    <h3>Lisa Fischer</h3>
+                    <div class="team-role">Gewichtsklasse: Federgewicht</div>
+                    <p style="margin-top: 10px; font-size: 12px;">14-1 Bilanz, Spezialistin im Bodenkampf.</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-image">🥊</div>
+                <div class="team-info">
+                    <h3>Tom Richter</h3>
+                    <div class="team-role">Gewichtsklasse: Mittelgewicht</div>
+                    <p style="margin-top: 10px; font-size: 12px;">12-3 Bilanz, Aufsteiger mit großen Ambitionen.</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="#" onclick="showPage('startseite'); return false;" style="display: inline-block; background: #cc0000; color: white; padding: 12px 30px; text-decoration: none; margin-top: 30px; font-weight: bold;">← Zur Startseite</a>
+    </div>
+
+    <!-- GALERIE -->
+    <div id="galerie" class="page">
+        <h1 style="color: #cc0000; margin-bottom: 30px;">Galerie</h1>
+
+        <h2 style="color: #333; font-size: 20px; margin-bottom: 20px;">Bilder vom Training</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">📸</div>
+            <div class="gallery-item">📸</div>
+            <div class="gallery-item">📸</div>
+        </div>
+
+        <h2 style="color: #333; font-size: 20px; margin-bottom: 20px; margin-top: 40px;">Wettkampfbilder</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">🏆</div>
+            <div class="gallery-item">🏆</div>
+            <div class="gallery-item">🏆</div>
+        </div>
+
+        <h2 style="color: #333; font-size: 20px; margin-bottom: 20px; margin-top: 40px;">Veranstaltungen</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">🎉</div>
+            <div class="gallery-item">🎉</div>
+            <div class="gallery-item">🎉</div>
+        </div>
+
+        <a href="#" onclick="showPage('startseite'); return false;" style="display: inline-block; background: #cc0000; color: white; padding: 12px 30px; text-decoration: none; margin-top: 30px; font-weight: bold;">← Zur Startseite</a>
+    </div>
+
+    <!-- KONTAKT -->
+    <div id="kontakt" class="page">
+        <h1 style="color: #cc0000; margin-bottom: 30px;">Kontakt & Anmeldung</h1>
+
+        <div class="content-grid">
+            <div>
+                <h2>Kontaktinformationen</h2>
+                <p><strong>Adresse:</strong><br>MMA Verein Deutschland<br>Kampfstraße 42<br>10115 Berlin</p>
+                <p><strong>E-Mail:</strong><br><a href="mailto:info@mma-verein.de" style="color: #cc0000; text-decoration: none;">info@mma-verein.de</a></p>
+                <p><strong>Telefon:</strong><br><a href="tel:+491234567890" style="color: #cc0000; text-decoration: none;">+49 (0) 123 456 7890</a></p>
+                
+                <h3 style="margin-top: 30px;">Öffnungszeiten:</h3>
+                <ul>
+                    <li>Montag - Freitag: 16:00 - 22:00 Uhr</li>
+                    <li>Samstag: 09:00 - 16:00 Uhr</li>
+                    <li>Sonntag: Geschlossen</li>
+                </ul>
+            </div>
+
+            <div class="contact-form">
+                <h2 style="color: #cc0000; margin-bottom: 20px;">Anmeldung Probetraining</h2>
+                <form onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-Mail *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Telefon</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="alter">Alter *</label>
+                        <input type="number" id="alter" name="alter" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="erfahrung">Erfahrung</label>
+                        <select id="erfahrung" name="erfahrung">
+                            <option value="anfänger">Anfänger (keine Erfahrung)</option>
+                            <option value="anfänger+">Anfänger+ (1-2 Jahre)</option>
+                            <option value="fortgeschritten">Fortgeschritten (3+ Jahre)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nachricht">Nachricht</label>
+                        <textarea id="nachricht" name="nachricht" placeholder="Deine Fragen oder Anmerkungen..."></textarea>
+                    </div>
+                    <button type="submit" class="btn">Anmelden</button>
+                </form>
+            </div>
+        </div>
+
+        <a href="#" onclick="showPage('startseite'); return false;" style="display: inline-block; background: #cc0000; color: white; padding: 12px 30px; text-decoration: none; margin-top: 30px; font-weight: bold;">← Zur Startseite</a>
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-links">
+        <a href="#" onclick="showPage('kontakt'); return false;">Kontakt</a>
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+    </div>
+    <p>&copy; 2024 MMA Verein Deutschland. Alle Rechte vorbehalten.</p>
+</footer>
+
+<script>
+function showPage(pageId) {
+    // Verstecke alle Seiten
+    const pages = document.querySelectorAll('.page');
+    pages.forEach(page => page.classList.remove('active'));
+    
+    // Zeige die gewählte Seite
+    document.getElementById(pageId).classList.add('active');
+    
+    // Update Navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => link.classList.remove('active'));
+    
+    // Finde den aktiven Link
+    const pageMap = {
+        'startseite': 0,
+        'geschichte': 1,
+        'produkte': 2,
+        'trainer': 3,
+        'galerie': 4,
+        'kontakt': 5
+    };
+    
+    if (pageMap[pageId] !== undefined) {
+        navLinks[pageMap[pageId]].classList.add('active');
+    }
+    
+    // Scroll nach oben
+    window.scrollTo(0, 0);
+}
+
+function handleSubmit(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value;
+    alert(`Danke für deine Anmeldung, ${name}! Wir melden uns schnellstens bei dir!`);
+    e.target.reset();
+}
+</script>
+
+</body>
+</html>
